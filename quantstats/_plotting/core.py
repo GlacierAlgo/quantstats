@@ -26,19 +26,14 @@ except Exception:
     pass
 
 import matplotlib.dates as _mdates
-from matplotlib.ticker import (
-    FormatStrFormatter as _FormatStrFormatter,
-    FuncFormatter as _FuncFormatter,
-)
-
-import pandas as _pd
 import numpy as _np
+import pandas as _pd
 import seaborn as _sns
-from .. import (
-    stats as _stats,
-    utils as _utils,
-)
+from matplotlib.ticker import FormatStrFormatter as _FormatStrFormatter
+from matplotlib.ticker import FuncFormatter as _FuncFormatter
 
+from .. import stats as _stats
+from .. import utils as _utils
 
 _sns.set(
     font_scale=1.1,
@@ -291,10 +286,10 @@ def plot_timeseries(
 
     if resample:
         returns = returns.resample(resample)
-        returns = returns.last() if compound is True else returns.sum(axis=0)
+        returns = returns.last() if compound is True else returns.sum()
         if isinstance(benchmark, _pd.Series):
             benchmark = benchmark.resample(resample)
-            benchmark = benchmark.last() if compound is True else benchmark.sum(axis=0)
+            benchmark = benchmark.last() if compound is True else benchmark.sum()
     # ---------------
 
     fig, ax = _plt.subplots(figsize=figsize)
